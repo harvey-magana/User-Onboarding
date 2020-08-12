@@ -52,7 +52,17 @@ const Form = () => {
 
     return (
       <div className="App">
-          I am the Form component.
+        <Form onSubmit={formSubmit}>
+            <FormGroup>
+                <Label htmlFor="label">Name:</Label>
+                <Input id="label" name="name" onChange={inputChange} />
+                <Label htmlFor="label">Email:</Label>
+                <Input id="label" name="email" onChange={inputChange} />
+                <Label htmlFor="label">Role:</Label>
+                <Input id="label" name="role" onChange={inputChange} />
+                <Button primary>Primary</Button>
+            </FormGroup>
+        </Form>
       </div>
     );
   }
