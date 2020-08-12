@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import '../App.css';
 
 const Form = () => {
@@ -42,6 +43,11 @@ const Form = () => {
         }
         validateChange(e);
         setFormState(newFormData);
+    }
+
+    const formSubmit = (e) => {
+        e.preventDefault();
+        console.log("form submitted!");
     }
 
     return (
