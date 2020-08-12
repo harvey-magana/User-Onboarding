@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DisplayForm from '../components/DisplayForm';
 import styled from 'styled-components';
 import * as yup from 'yup';
 import axios from "axios";
@@ -154,6 +155,7 @@ const Form = () => {
                 <Button disabled={buttonDisabled} primary>Primary</Button>
             </FormGroup>
         </FormContainer>
+        <DisplayForm />
       </div>
     );
   }
