@@ -5,7 +5,15 @@ const [ formState, setFormState ] = useState({
     name: '', 
     email: '', 
     password: '', 
-})
+});
+
+const [ buttonDisabled, setButtonDisabled ] = useState(true);
+
+const [ errors, setErrors ] = useState({
+    name: '', 
+    email: '', 
+    password: '', 
+});
 
 const Form = () => {
     return (
