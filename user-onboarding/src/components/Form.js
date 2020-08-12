@@ -58,7 +58,7 @@ const Form = () => {
     });
 
     const [ post, setPost ] = useState([])
-    
+
     const validateChange = (e) => {
         yup
             .reach(formSchema, e.target.name)
@@ -93,8 +93,14 @@ const Form = () => {
         axios
             .post("https://reqres.in/api/users")
             .then((res) => {
-
+                setPost(res.data);
+                setFormState({
+                    name: '', 
+                    email: '', 
+                    password: '', 
+                })
             })
+            .catch((err) => console.log(err.response));
     }
 
     const formSchema = yup.object().shape({
