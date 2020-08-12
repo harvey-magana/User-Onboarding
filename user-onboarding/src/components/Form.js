@@ -63,7 +63,12 @@ const Form = () => {
         yup
             .reach(formSchema, e.target.name)
             .validate(e.target.value)
-            .then((valid) => {})
+            .then((valid) => {
+                setErrors({
+                    ...errors,
+                    [e.target.name]: ""
+                });
+            })
             .catch((err) => {
                 setErrors({
                     ...errors,
