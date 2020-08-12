@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as yup from 'yup';
 import axios from "axios";
@@ -63,14 +63,8 @@ const Form = () => {
         yup
             .reach(formSchema, e.target.name)
             .validate(e.target.value)
-            .then((valid) => {
-                setErrors({
-                    ...errors, 
-                    [e.target.name]: ""
-                })
-            })
+            .then((valid) => {})
             .catch((err) => {
-                console.log(err);
                 setErrors({
                     ...errors,
                     [e.target.name]: err.errors[0]
@@ -83,7 +77,7 @@ const Form = () => {
             ...formState, 
             [e.target.name]: e.target.value
         }
-        validateChange(e);
+        //validateChange(e);
         setFormState(newFormData);
     }
 
@@ -103,23 +97,55 @@ const Form = () => {
             .catch((err) => console.log(err.response));
     }
 
+    useEffect(() => {
+        formSchema.isValid(formState).then((isValid) => {
+            setButtonDisabled(!isValid)
+        });
+    }, [formState])
+
     const formSchema = yup.object().shape({
-        name: yup.string().required("Name is required"), 
-        email: yup.string().email("Make sure you enter a valid email").required("Must include an email"), 
-        password: yup.string().required('Password is required')
-    })
+        name: yup
+            .string()
+            .required("Name is required"), 
+        email: yup
+            .string()
+            .email("Make sure you enter a valid email")
+            .required("Must include an email"), 
+            password: yup
+            .string()
+            .min(6, "Passwords must be at least 6 characters long.")
+            .required("Password is Required")
+    });
 
     return (
       <div className="App">
         <FormContainer onSubmit={formSubmit}>
             <FormGroup>
-                <Label htmlFor="label">Name:</Label>
-                <Input id="label" name="name" onChange={inputChange} />
-                <Label htmlFor="label">Email:</Label>
-                <Input id="label" name="email" onChange={inputChange} />
-                <Label htmlFor="label">Password:</Label>
-                <Input id="label" name="password" onChange={inputChange} />
-                <Button primary>Primary</Button>
+                <Label htmlFor="name">Name:</Label>
+                <Input 
+                    id="label" 
+                    name="name" 
+                    onChange={inputChange} 
+                    value={formState.name}
+                />
+                {errors.name.length > 0 ? <p>{errors.name}</p> : null}
+                <Label htmlFor="email">Email:</Label>
+                <Input 
+                    id="label" 
+                    name="email" 
+                    onChange={inputChange} 
+                    value={formState.email}
+                />
+                {errors.email.length > 0 ? <p>{errors.email}</p> : null}
+                <Label htmlFor="password">Password:</Label>
+                <Input 
+                    id="label" 
+                    name="password" 
+                    onChange={inputChange} 
+                    value={formState.password}
+                />
+                {errors.password.length > 0 ? <p>{errors.password}</p> : null}
+                <Button disabled={buttonDisabled} primary>Primary</Button>
             </FormGroup>
         </FormContainer>
       </div>
