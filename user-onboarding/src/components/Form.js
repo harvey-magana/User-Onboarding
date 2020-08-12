@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as yup from 'yup';
+import axios from "axios";
 import '../App.css';
 
 const FormContainer = styled.form`
@@ -56,6 +57,8 @@ const Form = () => {
         password: '', 
     });
 
+    const [ post, setPost ] = useState([])
+    
     const validateChange = (e) => {
         yup
             .reach(formSchema, e.target.name)
@@ -87,6 +90,11 @@ const Form = () => {
     const formSubmit = (e) => {
         e.preventDefault();
         console.log("form submitted!");
+        axios
+            .post("https://reqres.in/api/users")
+            .then((res) => {
+
+            })
     }
 
     const formSchema = yup.object().shape({
