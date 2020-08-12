@@ -78,11 +78,12 @@ const Form = () => {
     }
 
     const inputChange = (e) => {
+        e.persist();
         const newFormData = {
             ...formState, 
             [e.target.name]: e.target.value
         }
-        //validateChange(e);
+        validateChange(e);
         setFormState(newFormData);
     }
 
