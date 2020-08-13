@@ -45,17 +45,21 @@ const Button = styled.button`
 
 const Form = () => {
     const [ formState, setFormState ] = useState({
+        id: 1,
         name: '', 
         email: '', 
-        password: '' 
+        password: '',
+        terms: true
     })
 
     const [ buttonDisabled, setButtonDisabled ] = useState(true);
 
     const [ errors, setErrors ] = useState({
+        id: Date.now(),
         name: '', 
         email: '', 
         password: '', 
+        terms: ''
     });
 
     const [ post, setPost ] = useState([])
@@ -82,7 +86,7 @@ const Form = () => {
         e.persist();
         const newFormData = {
             ...formState, 
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value === "checkbox" ? e.target.checked : e.target.value 
         }
         validateChange(e);
         setFormState(newFormData);
@@ -92,13 +96,14 @@ const Form = () => {
         e.preventDefault();
         console.log("form submitted!");
         axios
-            .post("https://reqres.in/api/users")
+            .post("https://reqres.in/api/users", formState)
             .then((res) => {
                 setPost(res.data);
                 setFormState({
                     name: '', 
                     email: '', 
                     password: '', 
+                    terms: true
                 })
             })
             .catch((err) => console.log(err.response));
@@ -155,7 +160,7 @@ const Form = () => {
                 <Button disabled={buttonDisabled} primary>Primary</Button>
             </FormGroup>
         </FormContainer>
-        <DisplayForm />
+        <DisplayForm formInput={formState} />
       </div>
     );
   }
