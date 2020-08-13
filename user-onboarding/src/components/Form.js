@@ -12,7 +12,7 @@ const FormContainer = styled.form`
 `;
 
 const FormGroup = styled.div`
-	color: #2196f3;
+	color: orange;
     display: block;
 	width: 300px;
 	margin: 50px auto;
@@ -37,7 +37,7 @@ const Input = styled.input`
 const Checkbox = styled.input`
 	padding: 0.5em;
 	color: #2196f3;
-	background: papayawhip;
+	background: #2196f3;
 	border: none;
 	border-radius: 3px;
 	width: 30%;
