@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import DisplayForm from '../components/DisplayForm';
 import styled from 'styled-components';
 import * as yup from 'yup';
 import axios from "axios";
@@ -55,7 +54,7 @@ const Button = styled.button`
 
 const Form = () => {
     const [ formState, setFormState ] = useState({
-        id: 1,
+        id: Date.now(),
         name: '', 
         email: '', 
         password: '',
@@ -72,7 +71,7 @@ const Form = () => {
         terms: ''
     });
 
-    const [ post, setPost ] = useState([])
+    const [ users, setUsers ] = useState([])
 
     const validateChange = (e) => {
         yup
@@ -108,8 +107,8 @@ const Form = () => {
         axios
             .post("https://reqres.in/api/users", formState)
             .then((res) => {
-                console.log(res.data)
-                setPost(res.data);
+                console.log(res)
+                setUsers(res.data)
                 setFormState({
                     name: '', 
                     email: '', 
@@ -193,8 +192,8 @@ const Form = () => {
                 </Label>
                 <Button disabled={buttonDisabled} primary>Primary</Button>
             </FormGroup>
+            <pre>{JSON.stringify(users, null, 2)}</pre>
         </FormContainer>
-        <DisplayForm formInput={formState} />
       </div>
     );
   }

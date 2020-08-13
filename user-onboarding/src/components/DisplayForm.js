@@ -22,10 +22,16 @@ const Member = styled.p`
 `;
 
 const DisplayForm = (props) => {
-    //console.log(props.formInput)
+    console.log(Object.values(props.formInput))
     return (
         <div>
-
+            {Object.keys(props.formInput).map(form => (
+            <MemberGroup key={form.id}>
+                <MemberTitle>{form.name}</MemberTitle>
+                <Member>{form.email}</Member>
+                <Member>{form.password}</Member>
+            </MemberGroup>
+            ))}
         </div>
     )
 }
