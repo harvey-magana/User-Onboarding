@@ -35,6 +35,16 @@ const Input = styled.input`
 	margin-bottom: 0.5em;
 `;
 
+const Checkbox = styled.input`
+	padding: 0.5em;
+	color: #2196f3;
+	background: papayawhip;
+	border: none;
+	border-radius: 3px;
+	width: 30%;
+	margin-bottom: 0.5em;
+`;
+
 const Button = styled.button`
   font-size: 1em;
   margin: 1em;
@@ -86,7 +96,7 @@ const Form = () => {
         e.persist();
         const newFormData = {
             ...formState, 
-            [e.target.name]: e.target.value === "checkbox" ? e.target.checked : e.target.value 
+            [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value 
         }
         validateChange(e);
         setFormState(newFormData);
@@ -98,6 +108,7 @@ const Form = () => {
         axios
             .post("https://reqres.in/api/users", formState)
             .then((res) => {
+                console.log(res.data)
                 setPost(res.data);
                 setFormState({
                     name: '', 
@@ -123,17 +134,22 @@ const Form = () => {
             .string()
             .email("Make sure you enter a valid email")
             .required("Must include an email"), 
-            password: yup
+        password: yup
             .string()
             .min(6, "Passwords must be at least 6 characters long.")
-            .required("Password is Required")
+            .required("Password is Required"),
+        terms: yup
+            .boolean()
+            .oneOf([true], "You must accept Terms and Conditions")
+
     });
 
     return (
       <div className="App">
         <FormContainer onSubmit={formSubmit}>
             <FormGroup>
-                <Label htmlFor="name">Name:</Label>
+                <Label htmlFor="name">
+                Name
                 <Input 
                     id="label" 
                     name="name" 
@@ -141,22 +157,40 @@ const Form = () => {
                     value={formState.name}
                 />
                 {errors.name.length > 0 ? <p>{errors.name}</p> : null}
-                <Label htmlFor="email">Email:</Label>
+                </Label>
+                <Label htmlFor="email">
+                Email
                 <Input 
                     id="label" 
                     name="email" 
                     onChange={inputChange} 
                     value={formState.email}
                 />
+                
                 {errors.email.length > 0 ? <p>{errors.email}</p> : null}
-                <Label htmlFor="password">Password:</Label>
+                </Label>
+                <Label htmlFor="password">
+                Password
                 <Input 
                     id="label" 
                     name="password" 
                     onChange={inputChange} 
                     value={formState.password}
                 />
+                
                 {errors.password.length > 0 ? <p>{errors.password}</p> : null}
+                </Label>
+                <Label htmlFor="terms">
+                Terms
+                <Checkbox 
+                    id="terms"
+                    type="checkbox"
+                    name="terms"
+                    checked={formState.terms} 
+                    onChange={inputChange} 
+                />
+                {errors.terms.length > 0 ? <p>{errors.terms}</p> : null}
+                </Label>
                 <Button disabled={buttonDisabled} primary>Primary</Button>
             </FormGroup>
         </FormContainer>

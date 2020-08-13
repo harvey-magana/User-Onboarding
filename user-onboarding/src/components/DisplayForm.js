@@ -9,7 +9,6 @@ const MemberGroup = styled.div`
   margin: 50px auto;
 `;
 
-console.log(MemberGroup);
 const MemberTitle = styled.h2`
 	margin-bottom: 0.5em;
 	color: #2196f3;
@@ -23,7 +22,7 @@ const Member = styled.p`
 `;
 
 const DisplayForm = (props) => {
-    console.log(props.formInput)
+    //console.log(props.formInput)
     return (
         <div>
 
