@@ -195,7 +195,7 @@ const Form = () => {
                 />
                 {errors.terms.length > 0 ? <p>{errors.terms}</p> : null}
                 </Label>
-                <Button disabled={buttonDisabled} primary>Primary</Button>
+                <Button data-cy="submit" disabled={buttonDisabled} primary>Primary</Button>
             </FormGroup>
             <pre>{JSON.stringify(users, null, 2)}</pre>
         </FormContainer>
