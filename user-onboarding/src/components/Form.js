@@ -163,6 +163,7 @@ const Form = () => {
                 <Input 
                     id="label" 
                     name="email" 
+                    data-cy="email"
                     onChange={inputChange} 
                     value={formState.email}
                 />
