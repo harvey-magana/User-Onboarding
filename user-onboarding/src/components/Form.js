@@ -189,6 +189,7 @@ const Form = () => {
                     id="terms"
                     type="checkbox"
                     name="terms"
+                    data-cy="terms"
                     checked={formState.terms} 
                     onChange={inputChange} 
                 />
