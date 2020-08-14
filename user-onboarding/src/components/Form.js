@@ -152,6 +152,7 @@ const Form = () => {
                 <Input 
                     id="label" 
                     name="name" 
+                    data-cy="name"
                     onChange={inputChange} 
                     value={formState.name}
                 />
@@ -172,6 +173,7 @@ const Form = () => {
                 Password
                 <Input 
                     id="label" 
+                    type="password"
                     name="password" 
                     onChange={inputChange} 
                     value={formState.password}
